@@ -18,3 +18,5 @@
 
 .DS_Store
 Thumbs.db
+
+./client/.tmp

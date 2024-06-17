@@ -5,19 +5,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/ftpskid/fullstack-webapp/controllers"
+	controllers "github.com/ftpskid/fullstack-webapp/controllers/Todos"
 	"github.com/ftpskid/fullstack-webapp/initializers"
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
-
-const ID = ""
-
-type Todo struct {
-	ID        primitive.ObjectID `json:"_id,omitempty"`
-	Completed bool               `json:"completed"`
-	Body      string             `json:"body"`
-}
 
 func init() {
 	initializers.LoadEnvInitializers()
@@ -29,10 +20,15 @@ func main() {
 
 	app := fiber.New()
 
-	app.Get("/api/todos", controllers.GetTodos)
+	// Build TODOS here
+	app.Post("/api/user/login", controllers.UserLogin)
+	app.Post("/api/user/signup", controllers.UserSignup)
+	app.Get("/api/todos", controllers.CreateTodos)
 	app.Post("/api/todos", controllers.CreateTodos)
 	app.Patch("/api/todos/:id", controllers.UpdateTodo)
 	app.Delete("/api/todos/:id", controllers.DeleteTodos)
+
+	// Build Timer here
 
 	port := os.Getenv("PORT")
 	if port == "" {
